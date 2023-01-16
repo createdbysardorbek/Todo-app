@@ -1,4 +1,6 @@
-import { Component } from "react";
+import {
+    Component
+} from "react";
 import './Active.scss'
 
 
@@ -9,7 +11,7 @@ class Active extends Component {
         const { active } = this.props
 
         return (
-            <h3>Active: {active}</h3>
+            <h3 > Active: {active}</h3>
         )
     }
 }
