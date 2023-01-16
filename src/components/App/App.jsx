@@ -103,7 +103,8 @@ class App extends Component {
         let { todos, all } = this.state
 
         if (all) {
-            todos = todos
+            let tasks = todos.map(elem => elem);
+            todos = tasks;
         } else {
             todos = todos.filter(elem => elem.done)
         }
