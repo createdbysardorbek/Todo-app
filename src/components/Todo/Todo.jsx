@@ -6,14 +6,16 @@ import './Todo.scss';
 class Todo extends Component {
     render() {
 
+        const { onDone, onDelete } = this.props
+
         return (
             <ul>
                 {
                     this.props.todo.map((value) => {
                         const { id, title, done } = value;
                         return <Task
-                            onDone={this.props.onDone}
-                            onDelete={this.props.onDelete}
+                            onDone={onDone}
+                            onDelete={onDelete}
                             key={id}
                             id={id}
                             title={title}

@@ -1,4 +1,5 @@
 import { Component } from "react";
+import NotDone from "../Done/NotDone";
 import Active from "../Active/Active";
 import All from "../All/All";
 import Clear from "../Clear/Clear";
@@ -9,7 +10,7 @@ class Edit extends Component {
 
     render() {
 
-        const { active, onClear, completed, all } = this.props
+        const { active, onClear, completed, notDone, all } = this.props
 
         return (
             <div className="edit">
@@ -17,6 +18,7 @@ class Edit extends Component {
 
                 <div className="edits">
                     <All all={all} />
+                    <NotDone notDone={notDone} />
                     <Completed completed={completed} />
                     <Clear onClear={onClear} />
                 </div>

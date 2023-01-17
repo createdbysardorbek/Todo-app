@@ -4,8 +4,6 @@ import Input from "../Input/Input";
 import Todo from "../Todo/Todo";
 import Edit from "../Edit/Edit";
 
-
-
 class App extends Component {
     constructor(props) {
         super(props)
@@ -34,13 +32,14 @@ class App extends Component {
                 },
             ],
 
-            all: true,
+            all: 5,
+            id: 5,
         }
     }
 
     onDone = (id) => {
         this.setState(({ todos }) => {
-            const newData = this.state.todos.map(elem => {
+            const newData = todos.map(elem => {
                 if (elem.id === id) {
                     elem.done = !elem.done
                 }
@@ -77,12 +76,13 @@ class App extends Component {
     }
 
     onSubmit = (task) => {
-
         const taskItem = {
             title: task,
             done: false,
-            id: this.state.todos.length + 2,
+            id: this.state.id + 1,
         }
+
+        this.setState({ id: this.state.id + 1 })
 
         this.setState(({ todos }) => {
             return {
@@ -92,9 +92,11 @@ class App extends Component {
 
     }
 
-    completed = () => this.setState({all: false});
+    completed = () => this.setState({ all: 0 });
 
-    allTasks = () => this.setState({all: true});
+    notDoneTasks = () => this.setState({ all: 1 });
+
+    all = () => this.setState({ all: 3 });
 
     render() {
 
@@ -102,11 +104,15 @@ class App extends Component {
 
         let { todos, all } = this.state
 
-        if (all) {
-            let tasks = todos.map(elem => elem);
-            todos = tasks;
+        if (all === 1) {
+            let task = todos.filter(elem => !elem.done);
+            todos = [...task]
+        } else if (all === 0) {
+            let task = todos.filter(elem => elem.done);
+            todos = [...task]
         } else {
-            todos = todos.filter(elem => elem.done)
+            let task = todos.filter(elem => elem);
+            todos = [...task];
         }
 
         const filterData = todos.filter(elem => !elem.done).length;
@@ -116,7 +122,7 @@ class App extends Component {
                 <h1>Todo App</h1>
                 <Input onSubmit={this.onSubmit} />
                 <Todo todo={todos} onDone={this.onDone} onDelete={this.onDelete} />
-                <Edit all={this.allTasks} completed={this.completed} active={filterData} onClear={this.onClear} />
+                <Edit all={this.all} notDone={this.notDoneTasks} completed={this.completed} active={filterData} onClear={this.onClear} />
             </div>
         )
     }
